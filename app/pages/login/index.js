@@ -2,40 +2,41 @@ import { useState } from 'react'
 import { StyleSheet, View } from 'react-native'
 import { Appbar, TextInput, Button, HelperText } from 'react-native-paper'
 import { authenticate as authenticateService } from '../../services/loginService';
+import { useAuth } from '../../../context/AuthContext';
 
-export default function Login(props) {
+export default function User(props) {
 
-    const [login, setLogin] = useState('');
+    const { login } = useAuth();
+
+    const [user, setUser] = useState('');
     const [password, setPassword] = useState('');
     const [hasError, setHasError] = useState(false);
     const [errorMessage, setErrorMessage] = useState('');
 
     async function authenticate() {
         try {
-            const authenticationData = await authenticateService(login, password)
-            console.log(authenticationData)
-            props.onLoginSuccess()
+            const authenticationData = await authenticateService(user, password)
+            login(authenticationData.SessionId)            
         } catch (error) {
             setErrorMessage(error.message);
             setHasError(true);
         }
-
     }
 
     return (
         <View>
             <Appbar.Header>
-                <Appbar.Content title="Login" />
+                <Appbar.Content title="User" />
             </Appbar.Header>
-            <View style={styles.loginContainer}>
+            <View style={styles.userContainer}>
                 <TextInput
                     mode="outlined"
                     autoCapitalize="none"
-                    label="Login"
+                    label="User"
                     style={styles.textInput}
-                    value={login}
+                    value={user}
                     onChangeText={(text) => {
-                        setLogin(text)
+                        setUser(text)
                     }}
                 />
                 <TextInput
@@ -53,7 +54,7 @@ export default function Login(props) {
                     mode="contained"
                     style={styles.button}
                     onPress={authenticate}>
-                    Login
+                    User
                 </Button>
                 <HelperText type="error" visible={hasError}>
                     {errorMessage}

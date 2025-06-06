@@ -1,7 +1,7 @@
 
 import { Config } from '../config';
 
-export async function authenticate(login, password) {
+export async function authenticate(user, password) {
 
     const url = `${Config.SERVICE_LAYER_URL}/Login`;
 
@@ -12,7 +12,7 @@ export async function authenticate(login, password) {
         },
         body: JSON.stringify({
             CompanyDB: Config.COMPANY_DB,
-            UserName: login,
+            UserName: user,
             Password: password
         })
     }
