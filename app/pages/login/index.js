@@ -3,7 +3,7 @@ import { StyleSheet, View } from 'react-native'
 import { Appbar, TextInput, Button, HelperText } from 'react-native-paper'
 import { authenticate as authenticateService } from '../../services/loginService';
 
-export default function Login() {
+export default function Login(props) {
 
     const [login, setLogin] = useState('');
     const [password, setPassword] = useState('');
@@ -13,7 +13,8 @@ export default function Login() {
     async function authenticate() {
         try {
             const authenticationData = await authenticateService(login, password)
-            //redirect to home
+            console.log(authenticationData)
+            props.onLoginSuccess()
         } catch (error) {
             setErrorMessage(error.message);
             setHasError(true);
