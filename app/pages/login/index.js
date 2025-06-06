@@ -26,7 +26,7 @@ export default function User(props) {
     return (
         <View>
             <Appbar.Header>
-                <Appbar.Content title="User" />
+                <Appbar.Content title="Login" />
             </Appbar.Header>
             <View style={styles.userContainer}>
                 <TextInput

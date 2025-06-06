@@ -1,14 +1,24 @@
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import Home from '../home';
-import Inventory from '../stock/inventory'
+import { createDrawerNavigator } from '@react-navigation/drawer';
+import { useAuth } from '../../../context/AuthContext';
+import DrawerContent from './drawerContent';
 
-const Stack = createNativeStackNavigator();
+import Home from '../home';
+import Inventory from '../stock/inventory';
+
+const Drawer = createDrawerNavigator();
 
 export default function AppStack() {
+    
+    const { logout } = useAuth();
+
     return (
-        <Stack.Navigator initialRouteName="Home">
-            <Stack.Screen name="Home" component={Home}/>
-            <Stack.Screen name="Inventory" component={Inventory}/>
-        </Stack.Navigator>
+        <Drawer.Navigator
+            drawerContent={(props) => <DrawerContent {...props} logout={logout} />}    
+            screenOptions={{ headerShown: true}}
+        >
+            <Drawer.Screen name="Home" component={Home}/>
+            <Drawer.Screen name="Inventory" component={Inventory}/>
+        </Drawer.Navigator>
+        
     )
 }
