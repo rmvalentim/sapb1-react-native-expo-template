@@ -3,6 +3,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { Provider as PaperProvider } from 'react-native-paper';
 import { StyleSheet, View } from 'react-native';
 import { AuthProvider, useAuth } from './context/AuthContext'
+import { b1ThemeTheme as theme } from './theme/b1Theme';
 import Login from './app/pages/login';
 import AppStack from './app/pages/appStack';
 
@@ -28,7 +29,7 @@ export function RootNavigation() {
 
 export default function App() {
   return (
-    <PaperProvider>
+    <PaperProvider theme={theme}>
       <View style={styles.container}>
         <AuthProvider>
           <RootNavigation />
