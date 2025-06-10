@@ -5,7 +5,7 @@ import { authenticate as authenticateService } from '../../services/loginService
 import { useAuth } from '../../../context/AuthContext';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-export default function User(props) {
+export default function Login(props) {
 
     const { login } = useAuth();
 
@@ -74,7 +74,7 @@ export default function User(props) {
             >
                 <ScrollView>
                     <Appbar.Header>
-                        <Appbar.Content title="Login" />
+                        <Appbar.Content title="B1-Stock" />
                     </Appbar.Header>
                     <View style={styles.userContainer}>
                         <TextInput
