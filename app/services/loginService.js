@@ -1,9 +1,12 @@
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
-import { Config } from '../config';
+export async function authenticate(password) {
 
-export async function authenticate(user, password) {
+    const savedUser = await AsyncStorage.getItem('@config:defaultUser');
+    const savedServiceLayerURL = await AsyncStorage.getItem('@config:serviceLayerURL');
+    const savedCompanyDb = await AsyncStorage.getItem('@config:companyDb');
 
-    const url = `${Config.SERVICE_LAYER_URL}/Login`;
+    const url = `${savedServiceLayerURL}/Login`;
 
     const config = {
         method: 'POST',
@@ -11,8 +14,8 @@ export async function authenticate(user, password) {
             'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-            CompanyDB: Config.COMPANY_DB,
-            UserName: user,
+            CompanyDB: savedCompanyDb,
+            UserName: savedUser,
             Password: password
         })
     }
@@ -21,12 +24,12 @@ export async function authenticate(user, password) {
         const response = await fetch(url, config);
         const data = await response.json();
 
-        if (response.status !== 200) {            
+        if (response.status !== 200) {
             throw new Error(data?.error?.message?.value || 'Erro desconhecido ao autenticar');
         }
 
         return (data)
     } catch (error) {
-        throw new Error(error.message );
+        throw new Error(error.message);
     }
 }
